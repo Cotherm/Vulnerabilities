@@ -21,6 +21,7 @@ After authentication, it will be necessary to access a page called `sta_rede.dia
 This page provides a function to perform an ICMP request to an arbitrary host. To learn more about the ping utility and the ICMP protocol (Request and Reply), please refer to the RFC mentioned in the references section.
 
 The application sends a POST request with the parameters host, testar_pacote, and ttl, where `host` is the target of the ping, `testar_pacote` specifies the number of ICMP requests to send, and `TTL` is time to Live (TTL) for the packets. Upon send the request the application executes the following command on the Unix system: `ping -c $testar_pacote $host`.
+
 This is where an attack vector is noticed. A user can exploit the vulnerability by sending a malicious POST request through a network proxy to bypass input sanitization by appending one of the sequence command operators (;, &&, or |) to the host parameter, the web application will execute the ping command mentioned above, followed by an additional command. For example, this could include reading sensitive files like `/etc/passwd`, `/etc/master.passwd` or get a reverse shell or execute arbitrary commands.
 
 ## Reverse Shell POC:
