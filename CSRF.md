@@ -45,7 +45,7 @@ Accept-Encoding: gzip, deflate, br
 Priority: u=0, i
 Connection: keep-alive
 
-task=save&boxchecked=0&hidemainmenu=0&search=&dados%5Bid%5D=&dados%5Bnome%5D=Teste+Blaze&dados%5Blogin%5D=athos_teste&dados%5Bemail%5D=test%40hotmail.com&dados%5Bgid%5D=2&dados%5Bpassword%5D=test123456&dados%5Bpassword2%5D=test123456&dados%5Bblock%5D=0&dados%5Bblock2%5D=1&dados%5Btotp2fa%5D=0&dados%5Btotp2fa_test%5D=&dados%5Btotp2fa_key%5D=4b818698b94ffb5e92377024f060d531&id=&option=ger_user
+task=save&boxchecked=0&hidemainmenu=0&search=&dados%5Bid%5D=&dados%5Bnome%5D=Teste+Blaze&dados%5Blogin%5D=user_test&dados%5Bemail%5D=test%40hotmail.com&dados%5Bgid%5D=2&dados%5Bpassword%5D=test123456&dados%5Bpassword2%5D=test123456&dados%5Bblock%5D=0&dados%5Bblock2%5D=1&dados%5Btotp2fa%5D=0&dados%5Btotp2fa_test%5D=&dados%5Btotp2fa_key%5D=4b818698b94ffb5e92377024f060d531&id=&option=ger_user
 ```
 
 
