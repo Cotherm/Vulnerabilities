@@ -49,7 +49,8 @@ task=save&boxchecked=0&hidemainmenu=0&search=&dados%5Bid%5D=&dados%5Bnome%5D=Tes
 ```
 
 
-The code below is creating a new administrative account on the web application.
+The code below is the exploit responsable to create a new administrative account on the web application.
+
 NOTE: Leave the `gid` parameter is set to 1 to ensure that the account will have administrative permissions, however, it can be changed depending on how the environment is configured.
 
 ```
