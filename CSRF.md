@@ -19,7 +19,7 @@ CSRF can cause lot of consequences, depending on how the CSRF request is crafted
 Cross-site request forgery (also known as CSRF) is a web security vulnerability that allows an attacker to induce users to perform actions that they do not intend to perform. It allows an attacker to partly circumvent the same origin policy, which is designed to prevent different websites from interfering with each other.
 
 As mentioned before, when an authenticated user clicks on the link, the malicious code will send a request to create a new user by the user's web browser. The code below creates a new administrative account in the vulnerable web application with the username `CSRF_POC` and the password `yourpassword`.
-The code sends a crafted POST request to the `ger_user page` page with the parameters `login`, `password`, `password2`, `nome`, `gid` and `email` fields. It is important to mention that this page is responsible for creating new users or changing their passwords. Filling the other parameters is optional; all the important ones are already completed and ready to use. The code below shows the POST request:
+The code sends a crafted POST request to the `ger_user page` page with the parameters `login`, `password`, `password2`, `nome`, `gid` and `email` fields. It is important to mention that this page is responsible for creating new users or changing their passwords. Filling the other parameters is optional; all the important ones are already completed and ready to use. Below is the `POST request` to create a new user on the web application:
 
 ```
 POST /index.php?page=ger_user HTTP/1.1
